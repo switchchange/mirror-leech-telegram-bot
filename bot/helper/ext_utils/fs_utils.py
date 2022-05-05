@@ -18,24 +18,22 @@ def clean_download(path: str):
         LOGGER.info(f"Cleaning Download: {path}")
         try:
             rmtree(path)
-        except FileNotFoundError:
+        except:
             pass
 
 def start_cleanup():
     try:
         rmtree(DOWNLOAD_DIR)
-    except FileNotFoundError:
+    except:
         pass
     makedirs(DOWNLOAD_DIR)
 
 def clean_all():
     aria2.remove_all(True)
-    qbc = get_client()
-    qbc.torrents_delete(torrent_hashes="all", delete_files=True)
-    qbc.app_shutdown()
+    get_client().torrents_delete(torrent_hashes="all")
     try:
         rmtree(DOWNLOAD_DIR)
-    except FileNotFoundError:
+    except:
         pass
 
 def exit_clean_up(signal, frame):
@@ -46,6 +44,19 @@ def exit_clean_up(signal, frame):
     except KeyboardInterrupt:
         LOGGER.warning("Force Exiting before the cleanup finishes!")
         sysexit(1)
+
+def clean_unwanted(path: str):
+    LOGGER.info(f"Cleaning unwanted files/folders: {path}")
+    for dirpath, subdir, files in walk(path, topdown=False):
+        for filee in files:
+            if filee.endswith(".!qB") or filee.endswith('.parts') and filee.startswith('.'):
+                osremove(ospath.join(dirpath, filee))
+        for folder in subdir:
+            if folder == ".unwanted":
+                rmtree(ospath.join(dirpath, folder))
+    for dirpath, subdir, files in walk(path, topdown=False):
+        if not listdir(dirpath):
+            rmdir(dirpath)
 
 def get_path_size(path: str):
     if ospath.isfile(path):
