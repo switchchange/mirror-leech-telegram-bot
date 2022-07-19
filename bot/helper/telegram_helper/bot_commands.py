@@ -42,10 +42,14 @@ class _BotCommands:
         self.QbZipLeechCommand = f'qbzipleech{CMD_INDEX}'
         self.LeechWatchCommand = f'leechwatch{CMD_INDEX}'
         self.LeechZipWatchCommand = f'leechzipwatch{CMD_INDEX}'
+        self.QbSelectCommand = f'qbsel{CMD_INDEX}'
         self.RssListCommand = f'rsslist{CMD_INDEX}'
         self.RssGetCommand = f'rssget{CMD_INDEX}'
         self.RssSubCommand = f'rsssub{CMD_INDEX}'
         self.RssUnSubCommand = f'rssunsub{CMD_INDEX}'
         self.RssSettingsCommand = f'rssset{CMD_INDEX}'
+        self.EvalCommand = f'eval{CMD_INDEX}'
+        self.ExecCommand = f'exec{CMD_INDEX}'
+        self.ClearLocalsCommand = f'clearlocals{CMD_INDEX}'
 
 BotCommands = _BotCommands()

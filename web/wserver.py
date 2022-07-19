@@ -2,9 +2,7 @@
 # (c) YashDK [yash-dk@github]
 # Redesigned By - @bipuldey19 (https://github.com/SlamDevs/slam-mirrorbot/commit/1e572f4fa3625ecceb953ce6d3e7cf7334a4d542#diff-c3d91f56f4c5d8b5af3d856d15a76bd5f00aa38d712691b91501734940761bdd)
 
-from logging import getLogger, FileHandler, StreamHandler, INFO, basicConfig as log_Config
-
-
+from logging import getLogger, FileHandler, StreamHandler, INFO, basicConfig
 from time import sleep
 from qbittorrentapi import NotFound404Error, Client as qbClient
 from flask import Flask, request
@@ -13,7 +11,7 @@ from web import nodes
 
 app = Flask(__name__)
 
-log_Config(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[FileHandler('log.txt'), StreamHandler()],
                     level=INFO)
 
@@ -213,6 +211,14 @@ input[type="submit"]:hover, input[type="submit"]:focus{
   z-index: 10000;
 }
 </style>
+<script>
+function s_validate() {
+    if ($("input[name^='filenode_']:checked").length == 0) {
+        alert("Select one file at least!");
+        return false;
+        }
+    }
+</script>
 </head>
 <body>
   <!--© Designed and coded by @bipuldey19-Telegram-->
@@ -236,7 +242,7 @@ input[type="submit"]:hover, input[type="submit"]:focus{
         <h4>Selected files size: <b id="checked_size">0</b> of <b id="total_size">0</b></h4>
     </div>
       <section>
-      <form action="{form_url}" method="POST">
+      <form action="{form_url}" onsubmit="return s_validate()" method="POST">
        {My_content}
        <input type="submit" name="Select these files ;)">
       </form>
